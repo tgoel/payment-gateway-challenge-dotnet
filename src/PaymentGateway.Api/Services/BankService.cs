@@ -16,14 +16,12 @@ public interface IBankService
 public class BankService : IBankService
 {
     private readonly HttpClient _httpClient;
-    private readonly ILogger _logger;
 
     private const string BankApiUrl = "http://localhost:8080/payments";
 
-    public BankService(HttpClient httpClient, ILogger logger) 
+    public BankService(HttpClient httpClient) 
     {
         _httpClient = httpClient;
-        _logger = logger;
     }
 
     public async Task<PostPaymentResponse> ProcessPayment(PostPaymentRequest request)
@@ -47,10 +45,8 @@ public class BankService : IBankService
         }
         catch (Exception ex)
         {
-            _logger.LogError("Error processing payment {0}", ex);
+            return RejectedResponse();
         }
-
-        return RejectedResponse();
     }
 
     private bool IsRequestValid(PostPaymentRequest request)
