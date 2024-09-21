@@ -54,7 +54,7 @@ public class BankService : IBankService
         return request != null
             && ValidationHelper.IsCardNumberValid(request.CardNumber)
             && ValidationHelper.IsExpiryMonthValid(request.ExpiryMonth)
-            && ValidationHelper.IsExpiryValid(request.ExpiryMonth, request.ExpiryYear)
+            && ValidationHelper.IsExpiryValid(request.ExpiryMonth, request.ExpiryYear, DateTime.Now)
             && ValidationHelper.IsCvvValid(request.Cvv)
             && ValidationHelper.IsCurrencyValid(request.Currency);
     }
