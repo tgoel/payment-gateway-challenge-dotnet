@@ -11,20 +11,17 @@ namespace PaymentGateway.Api.Controllers;
 [ApiController]
 public class PaymentsController : Controller
 {
-    private readonly PaymentsRepository _paymentsRepository;
-    private readonly IBankService _paymentsService;
+    private readonly IPaymentsService _paymentsService;
 
-
-    public PaymentsController(PaymentsRepository paymentsRepository, IBankService paymentsService)
+    public PaymentsController(IPaymentsService paymentsService)
     {
-        _paymentsRepository = paymentsRepository;
         _paymentsService = paymentsService;
     }
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<PostPaymentResponse?>> GetPaymentAsync(Guid id)
     {
-        var payment = _paymentsRepository.Get(id);
+        var payment = _paymentsService.GetPayment(id);
 
         if (payment == null)
             return new NotFoundObjectResult(payment);
@@ -39,8 +36,6 @@ public class PaymentsController : Controller
 
         if (response.Status == PaymentStatus.Rejected)
             return new BadRequestObjectResult(response);
-
-        _paymentsRepository.Add(response);
 
         return new OkObjectResult(response);
     }

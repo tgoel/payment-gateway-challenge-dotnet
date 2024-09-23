@@ -188,6 +188,7 @@ public class PaymentsControllerTests
         return webApplicationFactory.WithWebHostBuilder(builder =>
             builder.ConfigureServices(services => ((ServiceCollection)services)
                 .AddSingleton(paymentsRepository)
+                .AddTransient<IPaymentsService, PaymentsService>()
                 .AddHttpClient<IBankService, BankService>()))
             .CreateClient();
     }
