@@ -8,6 +8,9 @@ public class ValidationHelper
 
     public static bool IsCardNumberValid(string cardNumber) 
     {
+        if (string.IsNullOrEmpty(cardNumber)) 
+            return false;
+
         var isNumeric = Regex.IsMatch(cardNumber, @"^\d+$");
         var isBetween14And19CharsLong = cardNumber.Length >= 14 && cardNumber.Length <= 19;
 
@@ -27,7 +30,7 @@ public class ValidationHelper
     }
 
     public static bool IsCurrencyValid(string currency)
-        => currency.Length == 3 && ValidIsoCodes.Contains(currency.ToUpper());
+        => currency != null && currency.Length == 3 && ValidIsoCodes.Contains(currency.ToUpper());
 
     public static bool IsCvvValid(int cvv)
     {
