@@ -48,7 +48,8 @@ public class PaymentsService : IPaymentsService
             && ValidationHelper.IsExpiryMonthValid(request.ExpiryMonth)
             && ValidationHelper.IsExpiryValid(request.ExpiryMonth, request.ExpiryYear, DateTime.Now)
             && ValidationHelper.IsCvvValid(request.Cvv)
-            && ValidationHelper.IsCurrencyValid(request.Currency);
+            && ValidationHelper.IsCurrencyValid(request.Currency)
+            && ValidationHelper.IsNotNegative(request.Amount);
     }
 
     private BankPaymentRequest CreateBankRequest(PostPaymentRequest request)

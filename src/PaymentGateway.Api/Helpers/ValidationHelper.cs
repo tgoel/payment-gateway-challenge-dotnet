@@ -32,6 +32,9 @@ public class ValidationHelper
     public static bool IsCvvValid(int cvv)
     {
         var cvvLength = cvv.ToString().Length;
-        return (cvvLength == 3 || cvvLength == 4) && cvv > 0;
+        return (cvvLength == 3 || cvvLength == 4) && IsNotNegative(cvv);
     }
+
+    public static bool IsNotNegative(int value)
+        => value > 0;
 }
